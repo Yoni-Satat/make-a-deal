@@ -1,9 +1,11 @@
-
+// let doorOneBtn = document.querySelector('#door-one');
+// let doorTwoBtn = document.querySelector('#door-two');
+// let doorThreeBtn = document.querySelector('#door-three');
 
 const app = function() {
   const canvas = document.querySelector('canvas');
   const context = canvas.getContext('2d');
-  let doorColor = "yellow";
+  let doorColor = "#c4c3bc";
   context.fillStyle = doorColor;
 
   const fillRect = function (array) {
@@ -42,13 +44,36 @@ const app = function() {
     }
   ]
 
-  const pickDoor = document.querySelector('#door-one');
-  pickDoor.addEventListener('click', function() {
+  const pickDoor1 = document.querySelector('#door-one');
+  pickDoor1.addEventListener('click', function() {
     context.beginPath();
     context.moveTo(75,125);
     context.lineTo(85,135);
     context.lineTo(95,115);
     context.strokeStyle = "green";
+    context.lineWidth = 5;
+    context.stroke();
+  });
+
+  const pickDoor2 = document.querySelector('#door-two');
+  pickDoor2.addEventListener('click', function() {
+    context.beginPath();
+    context.moveTo(325,125);
+    context.lineTo(335,135);
+    context.lineTo(345,115);
+    context.strokeStyle = "green";
+    context.lineWidth = 5;
+    context.stroke();
+  });
+
+  const pickDoor3 = document.querySelector('#door-three');
+  pickDoor3.addEventListener('click', function() {
+    context.beginPath();
+    context.moveTo(575,125);
+    context.lineTo(585,135);
+    context.lineTo(595,115);
+    context.strokeStyle = "green";
+    context.lineWidth = 5;
     context.stroke();
   });
 
@@ -62,7 +87,7 @@ const app = function() {
       doors.forEach(function(door){
         if(door.number === randomNumber) {
           const replacedDoor = {
-            "color":  context.fillStyle = "red",
+            "color":  context.fillStyle = "#cecba9",
             "shape":  fillRect(door.coords),
             "number": randomNumber,
             "prize": false
@@ -70,7 +95,21 @@ const app = function() {
           console.log('replacedDoor');
         }
       });
+      togglePickDoorButtons();
+      hostOpenDoor.setAttribute("style", "display: none");
   });
+
+  const togglePickDoorButtons = function() {
+    let doorOneBtn = document.querySelector('#door-one');
+    doorOneBtn.setAttribute("style","display: inline-block");
+
+    let doorTwoBtn = document.querySelector('#door-two');
+    doorTwoBtn.setAttribute("style","display: inline-block");
+
+    let doorThreeBtn = document.querySelector('#door-three');
+    doorThreeBtn.setAttribute("style","display: inline-block");
+
+  }
 
 
 

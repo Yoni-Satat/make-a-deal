@@ -14,3 +14,7 @@ button {
   color: #ffffff;
   font-size: 18px;
 }
+
+#door-one, #door-two, #door-three {
+  display: none;
+}
