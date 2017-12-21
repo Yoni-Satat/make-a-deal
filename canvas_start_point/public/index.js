@@ -5,14 +5,10 @@ const app = function() {
   const context = canvas.getContext('2d');
   let doorColor = "#c4c3bc";
   context.fillStyle = doorColor;
-  let randomNumber = Math.floor(Math.random() * 3) + 1;
+  let randomNumber = Math.round(Math.random());
 
-  const fillRect = function (array) {
-    const x = array[0];
-    const y = array[1];
-    const width = array[2];
-    const height = array[3];
-    context.fillRect(x, y, width, height);
+  const fillRect = function (coords) {
+    context.fillRect(coords.x, coords.y, coords.width, coords.height);
   };
 
   let door1 = [75,125,200,350];
@@ -22,33 +18,48 @@ const app = function() {
   let doors = [
     {
       "color":  doorColor,
-      "shape":  fillRect(door1),
-      "coords": [75,125,200,350],
+      "coords": {
+        x: 75,
+        y: 125,
+        width: 200,
+        height: 350
+      },
       "number": 1,
       "prize": false,
-      "isPlayer": false
+      "isPlayer": false,
+      "isHost": false
     },
     {
       "color":  doorColor,
-      "shape":  fillRect(door2),
-      "coords": [325,125,200,350],
+      "coords": {
+        x: 325,
+        y: 125,
+        width: 200,
+        height: 350
+      },
       "number": 2,
       "prize": false,
-      "isPlayer": false
+      "isPlayer": false,
+      "isHost": false
     },
     {
       "color":  doorColor,
-      "shape": fillRect(door3),
-      "coords": [575,125,200,350],
+      "coords": {
+        x: 575,
+        y: 125,
+        width: 200,
+        height: 350
+      },
       "number": 3,
       "prize": false,
-      "isPlayer": false
+      "isPlayer": false,
+      "isHost": false
     }
   ]
 
   doors.forEach(function(door) {
+    fillRect(door.coords);
     if(door.number === randomNumber) {
-      door.prize = true;
     }
   });
 
@@ -63,11 +74,11 @@ const app = function() {
     context.stroke();
     hidePickDoorButtons();
     hostOpenDoor.setAttribute("style", "display: inline-block");
-    
+    doors[0].isPlayer = true;
   });
 
-  const pickDoor2 = document.querySelector('#door-two');
-  pickDoor2.addEventListener('click', function() {
+  const door2Button = document.querySelector('#door-two');
+  door2Button.addEventListener('click', function() {
     context.beginPath();
     context.moveTo(325,125);
     context.lineTo(335,135);
@@ -77,21 +88,28 @@ const app = function() {
     context.stroke();
     hidePickDoorButtons();
     hostOpenDoor.setAttribute("style", "display: inline-block");
+    doors[1].isPlayer = true;
   });
 
-  const pickDoor3 = document.querySelector('#door-three');
-  pickDoor3.addEventListener('click', function() {
-    context.beginPath();
-    context.moveTo(575,125);
-    context.lineTo(585,135);
-    context.lineTo(595,115);
-    context.strokeStyle = "green";
-    context.lineWidth = 5;
-    context.stroke();
-    hidePickDoorButtons();
-    hostOpenDoor.setAttribute("style", "display: inline-block");
+  const door3Button = document.querySelector('#door-three');
+  door3Button.addEventListener('click', function () {
+    handleDoorButtonClick(doors[2]);
   });
 
+
+const handleDoorButtonClick = function(door) {
+  context.beginPath();
+  context.moveTo(575,125);
+  context.lineTo(585,135);
+  context.lineTo(595,115);
+  context.strokeStyle = "green";
+  context.lineWidth = 5;
+  context.stroke();
+  hidePickDoorButtons();
+  hostOpenDoor.setAttribute("style", "display: inline-block");
+  door.isPlayer = true;
+  console.log(doors);
+}
 
   // Host open door
   const hostOpenDoor = document.querySelector('#host');
@@ -99,18 +117,22 @@ const app = function() {
 
     // let randomNumber = Math.floor(Math.random() * 3) + 1;
 
-      doors.forEach(function(door){
-        if(door.number === randomNumber) {
-          const replacedDoor = {
-            "color":  context.fillStyle = "#cecba9",
-            "shape":  fillRect(door.coords),
-            "number": randomNumber,
-            "prize": true
-          }
-          console.log('replacedDoor');
-        }
-      });
-      // hidePickDoorButtons();
+      const doorsWithoutPlayer = doors.filter(function (door) {
+        return !door.isPlayer;
+      })
+
+      const hostDoor = doorsWithoutPlayer[Math.round(Math.random())];
+      context.fillStyle = "#cecba9";
+      fillRect(hostDoor.coords);
+      hostDoor.isHost = true;
+
+      const doorsWithoutHost = doors.filter(function (door) {
+        return !door.isHost;
+      })
+      const prizeDoor = doorsWithoutHost[Math.round(Math.random())];
+      prizeDoor.prize = true;
+
+      console.log(doors);
   });
 
   const hidePickDoorButtons = function() {
