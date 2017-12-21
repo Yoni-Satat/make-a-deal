@@ -1,12 +1,11 @@
-// let doorOneBtn = document.querySelector('#door-one');
-// let doorTwoBtn = document.querySelector('#door-two');
-// let doorThreeBtn = document.querySelector('#door-three');
+// on load, one door prize = true
 
 const app = function() {
   const canvas = document.querySelector('canvas');
   const context = canvas.getContext('2d');
   let doorColor = "#c4c3bc";
   context.fillStyle = doorColor;
+  let randomNumber = Math.floor(Math.random() * 3) + 1;
 
   const fillRect = function (array) {
     const x = array[0];
@@ -26,23 +25,32 @@ const app = function() {
       "shape":  fillRect(door1),
       "coords": [75,125,200,350],
       "number": 1,
-      "prize": false
+      "prize": false,
+      "isPlayer": false
     },
     {
       "color":  doorColor,
       "shape":  fillRect(door2),
       "coords": [325,125,200,350],
       "number": 2,
-      "prize": false
+      "prize": false,
+      "isPlayer": false
     },
     {
       "color":  doorColor,
       "shape": fillRect(door3),
       "coords": [575,125,200,350],
       "number": 3,
-      "prize": false
+      "prize": false,
+      "isPlayer": false
     }
   ]
+
+  doors.forEach(function(door) {
+    if(door.number === randomNumber) {
+      door.prize = true;
+    }
+  });
 
   const pickDoor1 = document.querySelector('#door-one');
   pickDoor1.addEventListener('click', function() {
@@ -53,6 +61,9 @@ const app = function() {
     context.strokeStyle = "green";
     context.lineWidth = 5;
     context.stroke();
+    hidePickDoorButtons();
+    hostOpenDoor.setAttribute("style", "display: inline-block");
+    
   });
 
   const pickDoor2 = document.querySelector('#door-two');
@@ -64,6 +75,8 @@ const app = function() {
     context.strokeStyle = "green";
     context.lineWidth = 5;
     context.stroke();
+    hidePickDoorButtons();
+    hostOpenDoor.setAttribute("style", "display: inline-block");
   });
 
   const pickDoor3 = document.querySelector('#door-three');
@@ -75,6 +88,8 @@ const app = function() {
     context.strokeStyle = "green";
     context.lineWidth = 5;
     context.stroke();
+    hidePickDoorButtons();
+    hostOpenDoor.setAttribute("style", "display: inline-block");
   });
 
 
@@ -82,7 +97,7 @@ const app = function() {
   const hostOpenDoor = document.querySelector('#host');
   hostOpenDoor.addEventListener('click', function() {
 
-    let randomNumber = Math.floor(Math.random() * 3) + 1;
+    // let randomNumber = Math.floor(Math.random() * 3) + 1;
 
       doors.forEach(function(door){
         if(door.number === randomNumber) {
@@ -90,31 +105,30 @@ const app = function() {
             "color":  context.fillStyle = "#cecba9",
             "shape":  fillRect(door.coords),
             "number": randomNumber,
-            "prize": false
+            "prize": true
           }
           console.log('replacedDoor');
         }
       });
-      togglePickDoorButtons();
-      hostOpenDoor.setAttribute("style", "display: none");
+      // hidePickDoorButtons();
   });
 
-  const togglePickDoorButtons = function() {
+  const hidePickDoorButtons = function() {
     let doorOneBtn = document.querySelector('#door-one');
-    doorOneBtn.setAttribute("style","display: inline-block");
+    doorOneBtn.setAttribute("style","display: none");
 
     let doorTwoBtn = document.querySelector('#door-two');
-    doorTwoBtn.setAttribute("style","display: inline-block");
+    doorTwoBtn.setAttribute("style","display: none");
 
     let doorThreeBtn = document.querySelector('#door-three');
-    doorThreeBtn.setAttribute("style","display: inline-block");
+    doorThreeBtn.setAttribute("style","display: none");
 
   }
 
 
 
 
-
+  console.log(doors);
   // end of app()
 }
 
