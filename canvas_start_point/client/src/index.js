@@ -3,6 +3,15 @@ const Door = require('./models/door.js');
 const app = function() {
   const canvas = document.querySelector('canvas');
   const context = canvas.getContext('2d');
+  // Grabbing buttons from HTML:
+  const doorOneBtn = document.querySelector('#door-one');
+  const doorTwoBtn = document.querySelector('#door-two');
+  const doorThreeBtn = document.querySelector('#door-three');
+  const hostOpenDoor = document.querySelector('#host');
+  const playerSwitchDoor = document.querySelector('#switch');
+  const revealPrize = document.querySelector('#reveal-prize');
+  const startNewGame = document.querySelector('#start-new-game');
+
   let doorColor = "#c4c3bc";
   context.fillStyle = doorColor;
   let randomNumber = Math.round(Math.random());
@@ -58,20 +67,20 @@ const app = function() {
     }
   });
 
-  const pickDoor1 = document.querySelector('#door-one');
-  pickDoor1.addEventListener('click', function() {
+
+  doorOneBtn.addEventListener('click', function() {
     doors[0].isPlayer = true;
     handleDoorButtonClick(doors[0]);
   });
 
-  const door2Button = document.querySelector('#door-two');
-  door2Button.addEventListener('click', function() {
+
+  doorTwoBtn.addEventListener('click', function() {
     doors[1].isPlayer = true;
     handleDoorButtonClick(doors[1]);
   });
 
-  const door3Button = document.querySelector('#door-three');
-  door3Button.addEventListener('click', function () {
+
+  doorThreeBtn.addEventListener('click', function () {
     doors[2].isPlayer = true;
     handleDoorButtonClick(doors[2]);
   });
@@ -99,9 +108,10 @@ const handleDoorButtonClick = function(door) {
 }
 
   // Host open door
-  const hostOpenDoor = document.querySelector('#host');
-  hostOpenDoor.addEventListener('click', function() {
 
+  hostOpenDoor.addEventListener('click', function() {
+      revealPrize.style.display = "inline-block";
+      playerSwitchDoor.style.display = "inline-block";
       const doorsWithoutPlayer = doors.filter(function (door) {
         return !door.isPlayer;
       });
@@ -121,19 +131,15 @@ const handleDoorButtonClick = function(door) {
       this.style.display = "none";
   });
 
+
+
   const hidePickDoorButtons = function() {
-    let doorOneBtn = document.querySelector('#door-one');
     doorOneBtn.setAttribute("style","display: none");
-
-    let doorTwoBtn = document.querySelector('#door-two');
     doorTwoBtn.setAttribute("style","display: none");
-
-    let doorThreeBtn = document.querySelector('#door-three');
     doorThreeBtn.setAttribute("style","display: none");
-
   }
 
-    const playerSwitchDoor = document.querySelector('#switch');
+
     playerSwitchDoor.addEventListener('click', function() {
       const doorsWithoutHost = doors.filter(function (door) {
         return !door.isHost;
@@ -146,16 +152,38 @@ const handleDoorButtonClick = function(door) {
       hostOpenDoor.setAttribute("style", "display: none");
     });
 
-    const revealPrize = document.querySelector('#reveal-prize');
+
     revealPrize.addEventListener('click', function() {
+      startNewGame.style.display = "inline-block";
+      playerSwitchDoor.style.display = "none";
+      revealPrize.style.display = "none";
       doors.forEach(function(door) {
-        console.log(door);
           if (!door.prize) return;
           doorColor = "pink";
           context.fillStyle = doorColor;
           fillRect(door.coords);
-
       });
+    });
+
+    const resetDoors = function(doors, coords) {
+      let doorColor = "#c4c3bc";
+      doors.forEach(function(door) {
+        context.fillStyle = doorColor;
+        fillRect(door.coords);
+        door.isPlayer = false;
+        door.prize = false;
+        door.isHost = false;
+      });
+    }
+
+
+    startNewGame.addEventListener('click', function() {
+        resetDoors(doors);
+        startNewGame.style.display = "none";
+        doorOneBtn.style.display = "inline-block";
+        doorTwoBtn.style.display = "inline-block";
+        doorThreeBtn.style.display = "inline-block";
+        revealPrize.style.display = "none";
     });
   // end of app()
 }

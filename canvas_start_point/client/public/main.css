@@ -15,6 +15,6 @@ button {
   font-size: 18px;
 }
 
-#host {
+#host, #start-new-game, #reveal-prize, #switch {
   display: none;
 }
