@@ -1,6 +1,6 @@
 const config = {
   // front end entry point (eg app.js || index.js)
-  entry: `${__dirname}/client/src/index.js`,
+  entry: `${__dirname}/client/src/app.js`,
   output: {
     // describe the file that I want webpack to build for me
     filename: 'bundle.js',

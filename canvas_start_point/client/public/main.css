@@ -18,3 +18,11 @@ button {
 #host, #start-new-game, #reveal-prize, #switch {
   display: none;
 }
+
+.hidden-button {
+  display: none;
+}
+
+.visible-button {
+  display: inline-block;
+}

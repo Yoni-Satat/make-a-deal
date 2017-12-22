@@ -1,4 +1,6 @@
 const Door = require('./models/door.js');
+// const buttonView = require('./views/button_view.js')
+// const canvasView = require('./views/canvas_view.js')
 
 const app = function() {
   const canvas = document.querySelector('canvas');
@@ -19,6 +21,13 @@ const app = function() {
   const fillRect = function (coords) {
     context.fillRect(coords.x, coords.y, coords.width, coords.height);
   };
+
+  // const emptyDoor = function(coords) {
+  //   context.font = "30px Comic Sans MS";
+  //   context.fillStyle = "red";
+  //   context.textAlign = "center";
+  //   context.fillText("Nothing Here", coords.x + 20, coords.y +20);
+  // }
 
   const door1 = new Door({
     "color":  doorColor,
@@ -63,8 +72,6 @@ const app = function() {
 
   doors.forEach(function(door) {
     fillRect(door.coords);
-    if(door.number === randomNumber) {
-    }
   });
 
 
@@ -121,13 +128,22 @@ const handleDoorButtonClick = function(door) {
       fillRect(hostDoor.coords);
       hostDoor.isHost = true;
 
+      // context.beginPath();
+      // context.moveTo(hostDoor.coords.x + 10, hostDoor.coords.y + 10);
+      // context.lineTo(hostDoor.coords.x + 30, hostDoor.coords.y + 30);
+      // context.lineTo(hostDoor.coords.x + 30, hostDoor.coords.y);
+      // context.strokeStyle = "red";
+      // context.lineWidth = 5;
+      // context.stroke();
+      context.font = "30px Comic Sans MS";
+      context.fillStyle = "red";
+      context.fillText("Nothing Here", hostDoor.coords.x + 5, hostDoor.coords.y + 40);
+
       const doorsWithoutHost = doors.filter(function (door) {
         return !door.isHost;
       });
       const prizeDoor = doorsWithoutHost[Math.round(Math.random())];
       prizeDoor.prize = true;
-
-
       this.style.display = "none";
   });
 
@@ -184,6 +200,9 @@ const handleDoorButtonClick = function(door) {
         doorTwoBtn.style.display = "inline-block";
         doorThreeBtn.style.display = "inline-block";
         revealPrize.style.display = "none";
+        // please refactor to:
+        // startNewGame.classList.remove('visible-button');
+        // startNewGame.classList.add('hidden-button');
     });
   // end of app()
 }
