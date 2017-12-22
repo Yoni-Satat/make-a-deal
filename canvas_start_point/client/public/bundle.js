@@ -160,9 +160,11 @@ const handleDoorButtonClick = function(door) {
   context.fillStyle = doorColor;
   fillRect(door.coords);
 }
+
   hidePickDoorButtons();
   hostOpenDoor.setAttribute("style", "display: inline-block");
-  console.log(doors);
+
+
 }
 
   // Host open door
@@ -184,7 +186,7 @@ const handleDoorButtonClick = function(door) {
       const prizeDoor = doorsWithoutHost[Math.round(Math.random())];
       prizeDoor.prize = true;
 
-      console.log(doors);
+
       this.style.display = "none";
   });
 
@@ -200,7 +202,7 @@ const handleDoorButtonClick = function(door) {
 
   }
 
-    let playerSwitchDoor = document.querySelector('#switch');
+    const playerSwitchDoor = document.querySelector('#switch');
     playerSwitchDoor.addEventListener('click', function() {
       const doorsWithoutHost = doors.filter(function (door) {
         return !door.isHost;
@@ -209,16 +211,21 @@ const handleDoorButtonClick = function(door) {
           door.isPlayer = !door.isPlayer;
           handleDoorButtonClick(door);
       });
-
-
-
-
+      playerSwitchDoor.setAttribute("style", "display: none");
+      hostOpenDoor.setAttribute("style", "display: none");
     });
 
+    const revealPrize = document.querySelector('#reveal-prize');
+    revealPrize.addEventListener('click', function() {
+      doors.forEach(function(door) {
+        console.log(door);
+          if (!door.prize) return;
+          doorColor = "pink";
+          context.fillStyle = doorColor;
+          fillRect(door.coords);
 
-
-
-  // console.log(doors);
+      });
+    });
   // end of app()
 }
 
