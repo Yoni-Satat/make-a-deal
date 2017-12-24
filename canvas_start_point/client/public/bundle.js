@@ -91,18 +91,11 @@ const app = function() {
     context.fillRect(coords.x, coords.y, coords.width, coords.height);
   };
 
-  // const emptyDoor = function(coords) {
-  //   context.font = "30px Comic Sans MS";
-  //   context.fillStyle = "red";
-  //   context.textAlign = "center";
-  //   context.fillText("Nothing Here", coords.x + 20, coords.y +20);
-  // }
-
   const door1 = new Door({
     "color":  doorColor,
     "coords": {
       x: 75,
-      y: 125,
+      y: 40,
       width: 200,
       height: 350
     },
@@ -115,7 +108,7 @@ const app = function() {
     "color":  doorColor,
     "coords": {
       x: 325,
-      y: 125,
+      y: 40,
       width: 200,
       height: 350
     },
@@ -128,7 +121,7 @@ const app = function() {
     "color":  doorColor,
     "coords": {
       x: 575,
-      y: 125,
+      y: 40,
       width: 200,
       height: 350
     },
@@ -164,30 +157,27 @@ const app = function() {
 
 const handleDoorButtonClick = function(door) {
   if(door.isPlayer) {
-  context.beginPath();
-  context.moveTo(door.coords.x + 10, door.coords.y + 10);
-  context.lineTo(door.coords.x + 20, door.coords.y + 20);
-  context.lineTo(door.coords.x + 30, door.coords.y);
-  context.strokeStyle = "green";
-  context.lineWidth = 5;
-  context.stroke();
-}else{
-  doorColor = "#c4c3bc";
-  context.fillStyle = doorColor;
-  fillRect(door.coords);
-}
-
-  hidePickDoorButtons();
-  hostOpenDoor.setAttribute("style", "display: inline-block");
-
-
+    context.beginPath();
+    context.moveTo(door.coords.x + 10, door.coords.y + 10);
+    context.lineTo(door.coords.x + 20, door.coords.y + 20);
+    context.lineTo(door.coords.x + 30, door.coords.y);
+    context.strokeStyle = "green";
+    context.lineWidth = 5;
+    context.stroke();
+  }else{
+    doorColor = "#c4c3bc";
+    context.fillStyle = doorColor;
+    fillRect(door.coords);
+  }
+    hidePickDoorButtons();
+    hostOpenDoor.disabled = false;
 }
 
   // Host open door
 
   hostOpenDoor.addEventListener('click', function() {
-      revealPrize.style.display = "inline-block";
-      playerSwitchDoor.style.display = "inline-block";
+      revealPrize.disabled = false;
+      playerSwitchDoor.disabled = false;
       const doorsWithoutPlayer = doors.filter(function (door) {
         return !door.isPlayer;
       });
@@ -197,31 +187,27 @@ const handleDoorButtonClick = function(door) {
       fillRect(hostDoor.coords);
       hostDoor.isHost = true;
 
-      // context.beginPath();
-      // context.moveTo(hostDoor.coords.x + 10, hostDoor.coords.y + 10);
-      // context.lineTo(hostDoor.coords.x + 30, hostDoor.coords.y + 30);
-      // context.lineTo(hostDoor.coords.x + 30, hostDoor.coords.y);
-      // context.strokeStyle = "red";
-      // context.lineWidth = 5;
-      // context.stroke();
       context.font = "30px Comic Sans MS";
       context.fillStyle = "red";
-      context.fillText("Nothing Here", hostDoor.coords.x + 5, hostDoor.coords.y + 40);
+      context.fillText("Nothing Here", hostDoor.coords.x + 5, hostDoor.coords.y + 80);
 
       const doorsWithoutHost = doors.filter(function (door) {
         return !door.isHost;
       });
       const prizeDoor = doorsWithoutHost[Math.round(Math.random())];
       prizeDoor.prize = true;
-      this.style.display = "none";
+      this.disabled = true;
   });
 
 
 
   const hidePickDoorButtons = function() {
-    doorOneBtn.setAttribute("style","display: none");
-    doorTwoBtn.setAttribute("style","display: none");
-    doorThreeBtn.setAttribute("style","display: none");
+    // doorOneBtn.setAttribute("style","display: none");
+    // doorTwoBtn.setAttribute("style","display: none");
+    // doorThreeBtn.setAttribute("style","display: none");
+    doorOneBtn.disabled = true;
+    doorTwoBtn.disabled = true;
+    doorThreeBtn.disabled = true;
   }
 
 
@@ -233,15 +219,15 @@ const handleDoorButtonClick = function(door) {
           door.isPlayer = !door.isPlayer;
           handleDoorButtonClick(door);
       });
-      playerSwitchDoor.setAttribute("style", "display: none");
-      hostOpenDoor.setAttribute("style", "display: none");
+      playerSwitchDoor.disabled = true;
+      hostOpenDoor.disabled = true;
     });
 
 
     revealPrize.addEventListener('click', function() {
-      startNewGame.style.display = "inline-block";
-      playerSwitchDoor.style.display = "none";
-      revealPrize.style.display = "none";
+      startNewGame.disabled = false;
+      playerSwitchDoor.disabled = true;
+      revealPrize.style.disabled = true;
       doors.forEach(function(door) {
           if (!door.prize) return;
           doorColor = "pink";
@@ -264,14 +250,14 @@ const handleDoorButtonClick = function(door) {
 
     startNewGame.addEventListener('click', function() {
         resetDoors(doors);
-        startNewGame.style.display = "none";
-        doorOneBtn.style.display = "inline-block";
-        doorTwoBtn.style.display = "inline-block";
-        doorThreeBtn.style.display = "inline-block";
-        revealPrize.style.display = "none";
+        startNewGame.disabled = true;
+        doorOneBtn.disabled = false;
+        doorTwoBtn.disabled = false;
+        doorThreeBtn.disabled = false;
+        revealPrize.disabled = true;
         // please refactor to:
-        // startNewGame.classList.remove('visible-button');
-        // startNewGame.classList.add('hidden-button');
+        // startNewGame.classList.remove('.visible-button');
+        // startNewGame.classList.add('.hidden-button');
     });
   // end of app()
 }
