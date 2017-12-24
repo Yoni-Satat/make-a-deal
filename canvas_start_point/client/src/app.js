@@ -13,6 +13,10 @@ const app = function() {
   const playerSwitchDoor = document.querySelector('#switch');
   const revealPrize = document.querySelector('#reveal-prize');
   const startNewGame = document.querySelector('#start-new-game');
+  const imageGoat = document.createElement('img');
+  imageGoat.src = "http://cartoon-animals.disneyandcartoons.com/_/rsrc/1472859114630/funny-goat-images/funny%20cartoon%20pink%20goat.png?height=400&width=400";
+  const imagePrize = document.createElement('img');
+  imagePrize.src = "http://www.pngall.com/wp-content/uploads/2016/04/Winner-PNG-File.png";
 
   let doorColor = "#c4c3bc";
   context.fillStyle = doorColor;
@@ -67,6 +71,16 @@ const app = function() {
     fillRect(door.coords);
   });
 
+  const drawGoat = function(x, y) {
+    context.drawImage(imageGoat, x, y, 170, 170);
+  }
+  imageGoat.addEventListener('load', drawGoat);
+
+  const drawPrize = function(x, y) {
+    context.drawImage(imagePrize, x, y, 170, 170);
+  }
+  imageGoat.addEventListener('load', drawPrize);
+
 
   doorOneBtn.addEventListener('click', function() {
     doors[0].isPlayer = true;
@@ -85,16 +99,24 @@ const app = function() {
     handleDoorButtonClick(doors[2]);
   });
 
+  const markDoorPlayer = function() {
+    doors.forEach(function(door) {
+      if (door.isPlayer) {
+        context.beginPath();
+        context.moveTo(door.coords.x + 10, door.coords.y + 10);
+        context.lineTo(door.coords.x + 20, door.coords.y + 20);
+        context.lineTo(door.coords.x + 30, door.coords.y);
+        context.strokeStyle = "green";
+        context.lineWidth = 5;
+        context.stroke();
+      }
+    });
+  }
+
 
 const handleDoorButtonClick = function(door) {
   if(door.isPlayer) {
-    context.beginPath();
-    context.moveTo(door.coords.x + 10, door.coords.y + 10);
-    context.lineTo(door.coords.x + 20, door.coords.y + 20);
-    context.lineTo(door.coords.x + 30, door.coords.y);
-    context.strokeStyle = "green";
-    context.lineWidth = 5;
-    context.stroke();
+    markDoorPlayer();
   }else{
     doorColor = "#c4c3bc";
     context.fillStyle = doorColor;
@@ -114,13 +136,14 @@ const handleDoorButtonClick = function(door) {
       });
 
       const hostDoor = doorsWithoutPlayer[Math.round(Math.random())];
-      context.fillStyle = "#cecba9";
+      context.fillStyle = "#ffffff";
       fillRect(hostDoor.coords);
       hostDoor.isHost = true;
+      drawGoat(hostDoor.coords.x + 15, hostDoor.coords.y + 140);
 
-      context.font = "30px Comic Sans MS";
-      context.fillStyle = "red";
-      context.fillText("Nothing Here", hostDoor.coords.x + 5, hostDoor.coords.y + 80);
+      // context.font = "30px Comic Sans MS";
+      // context.fillStyle = "red";
+      // context.fillText("Nothing Here", hostDoor.coords.x + 5, hostDoor.coords.y + 180);
 
       const doorsWithoutHost = doors.filter(function (door) {
         return !door.isHost;
@@ -160,10 +183,15 @@ const handleDoorButtonClick = function(door) {
       playerSwitchDoor.disabled = true;
       revealPrize.style.disabled = true;
       doors.forEach(function(door) {
-          if (!door.prize) return;
-          doorColor = "pink";
-          context.fillStyle = doorColor;
+          // if (!door.prize) return;
+          context.fillStyle = "#ffffff";
           fillRect(door.coords);
+          drawGoat(door.coords.x + 15, door.coords.y + 140);
+
+          if (!door.prize) return;
+
+          drawPrize(door.coords.x + 15, door.coords.y + 140);
+          markDoorPlayer();
       });
     });
 

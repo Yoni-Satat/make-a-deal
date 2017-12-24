@@ -25,9 +25,30 @@ button {
   border: 5px solid green;
 }
 
+#door-one {
+  z-index: 1;
+  margin-left: 178px;
+  position: fixed;
+  margin-top: 100px;
+}
+
+#door-two {
+  z-index: 1;
+  margin-left: 430px;
+  position: fixed;
+  margin-top: 100px;
+}
+
+#door-three {
+  z-index: 1;
+  margin-left: 680px;
+  position: fixed;
+  margin-top: 100px;
+}
+
 h1 {
   font-family: Arial;
-  font-size: 30px;
+  font-size: 40px;
   color: green;
   text-align: center;
 }
@@ -35,6 +56,11 @@ h1 {
 /* #host, #start-new-game, #reveal-prize, #switch {
   display: none;
 } */
+
+#start-new-game {
+  background-color: red;
+  border: 5px solid red;
+}
 
 .hidden-button {
   display: none;
