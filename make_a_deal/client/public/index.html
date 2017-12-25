@@ -6,27 +6,31 @@
     <link rel='stylesheet' type='text/css' href='main.css'>
   </head>
   <body>
-
-    <h1>Welcome to Make a Deal!</h1>
-    <h2>"The Monty Hall Problem"</h2>
-
-
-
-    <div id="buttons">
-      <!-- <button id="door-one">Door No. 1</button>
-      <button id="door-two">Door No. 2</button>
-      <button id="door-three">Door No. 3</button> -->
-      <button id="host" disabled>Play Host</button>
-      <button id="switch" disabled>Switch Door</button>
-      <button id="reveal-prize" disabled>Reveal Prize</button>
-      <button id="start-new-game" disabled>Restart Game</button>
-    </div>
+    <header>
+      <h1>Welcome to Make a Deal!</h1>
+      <h2>"The Monty Hall Problem"</h2>
+    </header>
 
     <div class="canvas">
+      <div id="buttons">
+        <button id="host" disabled>Play Host</button>
+        <button id="switch" disabled>Switch Door</button>
+        <button id="reveal-prize" disabled>Reveal Prize</button>
+        <button id="start-new-game">Restart Game</button>
+      </div>
       <button id="door-one">Door No. 1</button>
       <button id="door-two">Door No. 2</button>
       <button id="door-three">Door No. 3</button>
       <canvas width="850" height="400"></canvas>
     </div>
+    <aside id="instructions">
+      <h2>How to play</h2>
+        <p><strong>1. See</strong> these 3 doors to the left?<br> <span class="align-paragraph">One is hiding a prize!</span></p>
+        <p><strong>2. Pick</strong> a door, any door!</p>
+        <p><strong>3. Play</strong> the host button, find the first goat</p>
+        <p><strong>4. Stay</strong> or Switch?<br><span class="align-paragraph">Remember, you cannot switch back</span> </p>
+        <p><strong>5. Stay</strong> the prize!, Did you win?</p>
+        <!-- <span class="align-paragraph"></span> -->
+    </aside>
   </body>
 </html>

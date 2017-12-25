@@ -11,7 +11,7 @@
 - The user can now choose to switch door or keep the one they picked first (cannot switch back!).
 - Now it's time to reveal where the prize is and see if the user won or not.
 
-### Is it better to Stat or better to Switch?
+### Is it better to Stay or better to Switch?
 ### It is, without a doubt **Better** to **Switch!**
 
 ## The Underling Maths - Bayes

@@ -139,7 +139,7 @@ const handleDoorButtonClick = function(door) {
       context.fillStyle = "#ffffff";
       fillRect(hostDoor.coords);
       hostDoor.isHost = true;
-      drawGoat(hostDoor.coords.x + 15, hostDoor.coords.y + 140);
+      drawGoat(hostDoor.coords.x + 10, hostDoor.coords.y + 140);
 
       // context.font = "30px Comic Sans MS";
       // context.fillStyle = "red";
@@ -179,14 +179,14 @@ const handleDoorButtonClick = function(door) {
 
 
     revealPrize.addEventListener('click', function() {
-      startNewGame.disabled = false;
+      // startNewGame.disabled = false;
       playerSwitchDoor.disabled = true;
       revealPrize.style.disabled = true;
       doors.forEach(function(door) {
           context.fillStyle = "#ffffff";
           fillRect(door.coords);
           if (!door.prize) {
-            drawGoat(door.coords.x + 15, door.coords.y + 140);
+            drawGoat(door.coords.x + 10, door.coords.y + 140);
           } else if (door.prize) {
             drawPrize(door.coords.x + 15, door.coords.y + 140);
             console.log(doors);
@@ -213,11 +213,13 @@ const handleDoorButtonClick = function(door) {
 
     startNewGame.addEventListener('click', function() {
         resetDoors(doors);
-        startNewGame.disabled = true;
+        // startNewGame.disabled = true;
         doorOneBtn.disabled = false;
         doorTwoBtn.disabled = false;
         doorThreeBtn.disabled = false;
         revealPrize.disabled = true;
+        hostOpenDoor.disabled = true;
+        playerSwitchDoor.disabled = true;
         // please refactor to:
         // startNewGame.classList.remove('.visible-button');
         // startNewGame.classList.add('.hidden-button');
