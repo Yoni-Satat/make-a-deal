@@ -53,6 +53,12 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  font-family: Arial;
+  color: green;
+  text-align: center;
+}
+
 /* #host, #start-new-game, #reveal-prize, #switch {
   display: none;
 } */

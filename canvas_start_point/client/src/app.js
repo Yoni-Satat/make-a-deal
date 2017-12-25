@@ -183,15 +183,19 @@ const handleDoorButtonClick = function(door) {
       playerSwitchDoor.disabled = true;
       revealPrize.style.disabled = true;
       doors.forEach(function(door) {
-          // if (!door.prize) return;
           context.fillStyle = "#ffffff";
           fillRect(door.coords);
-          drawGoat(door.coords.x + 15, door.coords.y + 140);
+          if (!door.prize) {
+            drawGoat(door.coords.x + 15, door.coords.y + 140);
+          } else if (door.prize) {
+            drawPrize(door.coords.x + 15, door.coords.y + 140);
+            console.log(doors);
+          } if (door.isPlayer) {
+            markDoorPlayer();
+          }
+          // if (!door.prize) return;
 
-          if (!door.prize) return;
 
-          drawPrize(door.coords.x + 15, door.coords.y + 140);
-          markDoorPlayer();
       });
     });
 
