@@ -38,7 +38,7 @@ button {
   width: 140px;
   border-radius: 5px;
   border: 1px solid #001942;
-  border-bottom: 2px solid #9cef0b;
+  border-bottom: 2px solid #001942;
   outline: none;
 }
 
@@ -64,7 +64,7 @@ button:hover {
   position: fixed;
   margin-top: 100px;
   border: 1px solid #001942;
-  border-bottom: 2px solid #9cef0b;
+  border-bottom: 2px solid #001942;
 }
 
 #door-two {
@@ -73,7 +73,7 @@ button:hover {
   position: fixed;
   margin-top: 100px;
   border: 1px solid #001942;
-  border-bottom: 2px solid #9cef0b;
+  border-bottom: 2px solid #001942;
 }
 
 #door-three {
@@ -82,17 +82,17 @@ button:hover {
   position: fixed;
   margin-top: 100px;
   border: 1px solid #001942;
-  border-bottom: 2px solid #9cef0b;
+  border-bottom: 2px solid #001942;
 }
 
 #instructions {
   float: right;
-  color: #ffffff;
   margin-right: 30px;
 }
 
 p {
   line-height: 1.6;
+  color: #ffffff;
 }
 
 .align-paragraph {

@@ -1,5 +1,5 @@
 {
-  "name": "canvas_start_point",
+  "name": "make_a_deal",
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
@@ -12,10 +12,13 @@
     "start": "node server.js",
     "build": "webpack -w"
   },
-  "author": "",
+  "author": "Yoni Satat",
   "license": "ISC",
   "devDependencies": {
     "mocha": "^4.0.1"
   },
-  "description": ""
+  "engines": {
+    "node": "8.3.0"
+  },
+  "description": "Let's make a deal"
 }

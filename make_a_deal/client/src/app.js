@@ -102,13 +102,16 @@ const app = function() {
   const markDoorPlayer = function() {
     doors.forEach(function(door) {
       if (door.isPlayer) {
-        context.beginPath();
-        context.moveTo(door.coords.x + 10, door.coords.y + 10);
-        context.lineTo(door.coords.x + 20, door.coords.y + 20);
-        context.lineTo(door.coords.x + 30, door.coords.y);
-        context.strokeStyle = "green";
-        context.lineWidth = 5;
-        context.stroke();
+        // context.beginPath();
+        // context.moveTo(door.coords.x + 10, door.coords.y + 10);
+        // context.lineTo(door.coords.x + 20, door.coords.y + 20);
+        // context.lineTo(door.coords.x + 30, door.coords.y);
+        // context.strokeStyle = "green";
+        // context.lineWidth = 5;
+        // context.stroke();
+        context.font = "26px Comic Sans MS";
+        context.fillStyle = "#ff0000";
+        context.fillText("IT'S MINE!", door.coords.x + 25, door.coords.y + 45);
       }
     });
   }
@@ -141,10 +144,6 @@ const handleDoorButtonClick = function(door) {
       hostDoor.isHost = true;
       drawGoat(hostDoor.coords.x + 10, hostDoor.coords.y + 140);
 
-      // context.font = "30px Comic Sans MS";
-      // context.fillStyle = "red";
-      // context.fillText("Nothing Here", hostDoor.coords.x + 5, hostDoor.coords.y + 180);
-
       const doorsWithoutHost = doors.filter(function (door) {
         return !door.isHost;
       });
@@ -156,9 +155,6 @@ const handleDoorButtonClick = function(door) {
 
 
   const hidePickDoorButtons = function() {
-    // doorOneBtn.setAttribute("style","display: none");
-    // doorTwoBtn.setAttribute("style","display: none");
-    // doorThreeBtn.setAttribute("style","display: none");
     doorOneBtn.disabled = true;
     doorTwoBtn.disabled = true;
     doorThreeBtn.disabled = true;
@@ -193,9 +189,6 @@ const handleDoorButtonClick = function(door) {
           } if (door.isPlayer) {
             markDoorPlayer();
           }
-          // if (!door.prize) return;
-
-
       });
     });
 
@@ -220,9 +213,6 @@ const handleDoorButtonClick = function(door) {
         revealPrize.disabled = true;
         hostOpenDoor.disabled = true;
         playerSwitchDoor.disabled = true;
-        // please refactor to:
-        // startNewGame.classList.remove('.visible-button');
-        // startNewGame.classList.add('.hidden-button');
     });
   // end of app()
 }
